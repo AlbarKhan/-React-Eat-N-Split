@@ -37,11 +37,27 @@
   margin: 10px 15px 20px 15px;
 }
 
-.addfriend {
-  border: 1px solid;
-  padding: 10px;
+.addfriend form {
+  padding: 30px;
+  background-color: bisque;
+  margin-bottom: 25px;
+  font-size: 19px;
+  box-shadow: 4px 0 8px 0 rgba(0, 0, 0, 0.5);
 }
-
+.addfriend p {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.addfriend input {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  width: 50%;
+}
+.add-btn {
+  float: right;
+}
 .list p {
   padding: 5px;
   display: flex;
@@ -109,7 +125,6 @@ img {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  border: 1px solid;
 }
 
 .split-btn {

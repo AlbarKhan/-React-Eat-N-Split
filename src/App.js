@@ -2,7 +2,7 @@ const list = [
   { name: "Albar", url: "jkkjkjkj" },
   { name: "Masood", url: "jkkjkjkj" },
   { name: "Habib", url: "jkkjkjkj" },
-  { name: "Tausif", url: "jkkjkjkj" },
+  // { name: "Tausif", url: "jkkjkjkj" },
 ];
 
 export default function App() {
@@ -45,14 +45,19 @@ function FriendList({ data }) {
 function FriendAddForm() {
   return (
     <div className="addfriend">
-      <button className="add-btn">Add Friend</button>
       <form>
-        <label>Friend Name </label>
-        <input type="text" placeholder="Name"></input>
-        <br></br>
-        <label>url: </label>
-        <input type="text"></input>
+        <p>
+          {" "}
+          <label>🧑‍🤝‍🧑 Friend Name </label>
+          <input type="text" placeholder="Name"></input>
+        </p>
+        <p>
+          {" "}
+          <label>🎥 Image url: </label>
+          <input type="text"></input>
+        </p>
       </form>
+      <button className="add-btn">Add Friend</button>
     </div>
   );
 }
