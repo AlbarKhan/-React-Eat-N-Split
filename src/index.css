@@ -10,16 +10,15 @@
 }
 
 .app {
-  /* border: 1px solid; */
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: scroll;
 }
 
 .eatsplit {
-  /* border: 1px solid; */
   display: flex;
   gap: 30px;
   width: 70%;
@@ -29,15 +28,13 @@
   width: 50%;
 }
 .list {
-  border: 1px solid;
-  padding: 10px;
-  margin: 10px;
+  /* padding: 10px; */
+  /* margin: 10px; */
   margin-bottom: 30px;
 }
 
 .list-item {
   margin: 10px 15px 20px 15px;
-  border: 1px solid;
 }
 
 .addfriend {
@@ -45,6 +42,22 @@
   padding: 10px;
 }
 
+.list p {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.list-text {
+  flex-direction: column;
+  justify-content: start;
+  width: 100%;
+  margin: 5px;
+}
+.select-btn {
+  float: right;
+  margin-top: 15px;
+  height: fit-content;
+}
 .bill {
   display: flex;
   flex-direction: column;
@@ -68,12 +81,10 @@
   margin-bottom: 50px;
 }
 .bill-form {
-  /* border: 1px solid; */
   width: 80%;
   position: relative;
 }
 .bill-form p {
-  /* border: 1px solid; */
   font-size: 19px;
 }
 .bill-form p input {
@@ -88,8 +99,17 @@ select {
 }
 
 button {
-  float: right;
-  font-size: 19px;
+  font-size: 16px;
+  background-color: var(--btnColor);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+}
+img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid;
 }
 
 .split-btn {
@@ -98,8 +118,6 @@ button {
   right: 5px;
   bottom: -20px;
   background-color: var(--btnColor);
-  padding: 5px 20px;
-  border: none;
   border-radius: 5px;
 }
 

@@ -28,7 +28,11 @@ function FriendList({ data }) {
       <div className="list">
         {data.map((l) => (
           <p className="list-item">
-            <span>{l.name}</span>
+            <img src="https://64.media.tumblr.com/1d2f7ea92e9302e5484a83eea3cc89f9/2f6156f671a74ded-c1/s1280x1920/ed5c1e084905191e9161210aa5fb3e9172a0776f.jpg"></img>
+            <p className="list-text">
+              <div>{l.name}</div>
+              <div>Owes</div>
+            </p>
             <button className="select-btn">Select</button>
           </p>
         ))}
