@@ -9,11 +9,11 @@ const list = [
   },
   {
     name: "Masood",
-    url: "https://64.media.tumblr.com/1d2f7ea92e9302e5484a83eea3cc89f9/2f6156f671a74ded-c1/s1280x1920/ed5c1e084905191e9161210aa5fb3e9172a0776f.jpg",
+    url: "https://i.pinimg.com/originals/bb/da/3a/bbda3a77f175371a90274697c7c79baf.jpg",
     selected: false,
     id: 2,
   },
-  // { name: "Habib", url: "jkkjkjkj" },
+
   {
     name: "Tausif",
     url: "https://64.media.tumblr.com/1d2f7ea92e9302e5484a83eea3cc89f9/2f6156f671a74ded-c1/s1280x1920/ed5c1e084905191e9161210aa5fb3e9172a0776f.jpg",
@@ -32,19 +32,32 @@ export default function App() {
 
 function EatNSplit() {
   const [friendList, setFriendList] = useState(list);
+  const [selectedFriend, setSelectedFriend] = useState(null);
 
   function handleAddFriend(item) {
     setFriendList((friendList) => [...friendList, item]);
   }
+
+  function handleSelectedFriend(friend) {
+    setSelectedFriend(friend);
+  }
   return (
     <div className="eatsplit">
-      <FriendList data={friendList} onAdd={handleAddFriend} />
-      <SplitBillForm />
+      <FriendList
+        data={friendList}
+        onAdd={handleAddFriend}
+        onSelect={handleSelectedFriend}
+      />
+      {selectedFriend === null ? (
+        ""
+      ) : (
+        <SplitBillForm selectedFriend={selectedFriend} />
+      )}
     </div>
   );
 }
 
-function FriendList({ data, onAdd }) {
+function FriendList({ data, onAdd, onSelect }) {
   return (
     <div className="section1">
       <div className="list">
@@ -55,7 +68,9 @@ function FriendList({ data, onAdd }) {
               <div>{l.name}</div>
               <div>Owes</div>
             </p>
-            <button className="select-btn">Select</button>
+            <button className="select-btn" onClick={() => onSelect(l)}>
+              Select
+            </button>
           </p>
         ))}
       </div>
@@ -120,10 +135,10 @@ function FriendAddForm({ onAdd }) {
   );
 }
 
-function SplitBillForm() {
+function SplitBillForm({ selectedFriend }) {
   return (
     <div className="bill">
-      <h2 className="bill-title">Split Bill With Friend</h2>
+      <h2 className="bill-title">Split Bill With {selectedFriend.name}</h2>
       <form className="bill-form">
         <p>
           {" "}
@@ -138,7 +153,7 @@ function SplitBillForm() {
 
         <p>
           {" "}
-          <label>🧑‍🤝‍🧑 Friend Expense</label>
+          <label>🧑‍🤝‍🧑 {selectedFriend.name} Expense</label>
           <input type="text"></input>
         </p>
         <p>
@@ -146,7 +161,7 @@ function SplitBillForm() {
           <label>🤑 Who is Paying the bill</label>
           <select>
             <option>You</option>
-            <option>Friend</option>
+            <option>{selectedFriend.name}</option>
           </select>
         </p>
         <br></br>
