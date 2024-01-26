@@ -5,12 +5,14 @@ const list = [
     name: "Albar",
     url: "https://64.media.tumblr.com/1d2f7ea92e9302e5484a83eea3cc89f9/2f6156f671a74ded-c1/s1280x1920/ed5c1e084905191e9161210aa5fb3e9172a0776f.jpg",
     selected: false,
+    balance: 0,
     id: 1,
   },
   {
     name: "Masood",
     url: "https://i.pinimg.com/originals/bb/da/3a/bbda3a77f175371a90274697c7c79baf.jpg",
     selected: false,
+    balance: 0,
     id: 2,
   },
 
@@ -18,6 +20,7 @@ const list = [
     name: "Tausif",
     url: "https://64.media.tumblr.com/1d2f7ea92e9302e5484a83eea3cc89f9/2f6156f671a74ded-c1/s1280x1920/ed5c1e084905191e9161210aa5fb3e9172a0776f.jpg",
     selected: false,
+    balance: 0,
     id: 3,
   },
 ];
@@ -41,28 +44,40 @@ function EatNSplit() {
   function handleSelectedFriend(friend) {
     setSelectedFriend(friend);
   }
+  function handleSplit(value) {
+    console.log(value);
+  }
   return (
     <div className="eatsplit">
       <FriendList
         data={friendList}
         onAdd={handleAddFriend}
         onSelect={handleSelectedFriend}
+        selectedFriend={selectedFriend}
       />
       {selectedFriend === null ? (
         ""
       ) : (
-        <SplitBillForm selectedFriend={selectedFriend} />
+        <SplitBillForm selectedFriend={selectedFriend} onSplit={handleSplit} />
       )}
     </div>
   );
 }
 
-function FriendList({ data, onAdd, onSelect }) {
+function FriendList({ data, onAdd, onSelect, selectedFriend }) {
   return (
     <div className="section1">
       <div className="list">
         {data.map((l) => (
-          <p className="list-item" key={l.id}>
+          <p
+            className="list-item"
+            key={l.id}
+            style={
+              l === selectedFriend
+                ? { backgroundColor: "bisque" }
+                : { backgroundColor: "none" }
+            }
+          >
             <img src={l.url} alt="friendimg"></img>
             <p className="list-text">
               <div>{l.name}</div>
@@ -139,10 +154,14 @@ function SplitBillForm({ selectedFriend }) {
   const [totalBill, setTotalBill] = useState("");
   const [own, setOwn] = useState("");
   const [whoIsPaying, setWhoIsPaying] = useState("user");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
   return (
     <div className="bill">
       <h2 className="bill-title">Split Bill With {selectedFriend.name}</h2>
-      <form className="bill-form">
+      <form className="bill-form" onSubmit={handleSubmit}>
         <p>
           {" "}
           <label>💰 Bill Value: </label>
@@ -158,7 +177,13 @@ function SplitBillForm({ selectedFriend }) {
           <input
             type="Number"
             value={own}
-            onChange={(e) => setOwn(Number(e.target.value))}
+            onChange={(e) =>
+              setOwn(
+                Number(e.target.value) > totalBill
+                  ? own
+                  : Number(e.target.value)
+              )
+            }
           ></input>
         </p>
 
@@ -179,7 +204,9 @@ function SplitBillForm({ selectedFriend }) {
           </select>
         </p>
         <br></br>
-        <button className="split-btn">Split Bill</button>
+        <button className="split-btn" type="submit">
+          Split Bill
+        </button>
       </form>
     </div>
   );
