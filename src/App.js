@@ -45,7 +45,14 @@ function EatNSplit() {
     setSelectedFriend(friend);
   }
   function handleSplit(value) {
-    console.log(value);
+    // console.log(value);
+    setFriendList((friendList) =>
+      friendList.map((friend) =>
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
+    );
   }
   return (
     <div className="eatsplit">
@@ -77,8 +84,12 @@ function FriendList({ data, onAdd, onSelect, selectedFriend }) {
           >
             <img src={l.url} alt="friendimg"></img>
             <p className="list-text">
-              <div>{l.name}</div>
-              <div>{l.name}</div>
+              <span>{l.name}</span>
+              <span>
+                {l.balance >= 0
+                  ? `${l.name} Owe You $${l.balance}`
+                  : ` You Owe ${l.name} $${-l.balance} `}
+              </span>
             </p>
             <button className="select-btn" onClick={() => onSelect(l)}>
               Select
@@ -107,7 +118,7 @@ function FriendAddForm({ onAdd }) {
       return;
     }
 
-    const newObj = { name, url, selected: false, id: Date.now() };
+    const newObj = { name, url, selected: false, id: Date.now(), balance: 0 };
     onAdd(newObj);
     return;
   }
@@ -155,9 +166,11 @@ function SplitBillForm({ selectedFriend, onSplit }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!totalBill || !own) return;
+    if (!totalBill || own < 0) return;
 
     onSplit(whoIsPaying === "user" ? paidByFriend : -paidByFriend);
+    setTotalBill(0);
+    setOwn("");
   }
   return (
     <div className="bill">
